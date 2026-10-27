@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var _rawFetch = window.fetch;
+          var _currentFetch = typeof _rawFetch === 'function' ? _rawFetch.bind(window) : _rawFetch;
+          try {
+            Object.defineProperty(window, 'fetch', {
+              get: function() {
+                return _currentFetch;
+              },
+              set: function(fn) {
+                _currentFetch = fn;
+              },
+              configurable: true,
+              enumerable: true,
+            });
+          } catch (e1) {
+            try {
+              if (window.Window && window.Window.prototype) {
+                Object.defineProperty(window.Window.prototype, 'fetch', {
+                  get: function() {
+                    return _currentFetch;
+                  },
+                  set: function(fn) {
+                    _currentFetch = fn;
+                  },
+                  configurable: true,
+                  enumerable: true,
+                });
+              }
+            } catch (e2) {}
+          }
+        } catch (e) {}
+
+        window.addEventListener('error', function(event) {
+          if (!event) return;
+          var msg = event.message || '';
+          var file = event.filename || '';
+          var stack = (event.error && event.error.stack) || '';
+          var isExtensionError =
+            file.indexOf('chrome-extension://') !== -1 ||
+            msg.indexOf('chrome-extension://') !== -1 ||
+            stack.indexOf('chrome-extension://') !== -1 ||
+            msg.indexOf('Cannot set property fetch') !== -1 ||
+            msg.indexOf('which has only a getter') !== -1;
+
+          if (isExtensionError) {
+            event.preventDefault();
+            if (typeof event.stopImmediatePropagation === 'function') {
+              event.stopImmediatePropagation();
+            }
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <title>Compressly – Free Online Image Compressor (JPG, PNG, WebP)</title>
+    <meta
+      name="description"
+      content="Compress images without losing quality. Reduce JPG, PNG, and WebP file sizes in seconds with 100% private, client-side browser processing. No uploads, completely free."
+    />
+    <meta property="og:title" content="Compressly – Free Online Image Compressor" />
+    <meta
+      property="og:description"
+      content="Reduce image file sizes in seconds. Free, fast, and secure client-side image compression for JPG, PNG, and WebP."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Compressly – Free Online Image Compressor" />
+    <meta
+      name="twitter:description"
+      content="Reduce image file sizes in seconds. Free, fast, and secure client-side image compression for JPG, PNG, and WebP."
+    />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/><polyline points='3.27 6.96 12 12.01 20.73 6.96'/><line x1='12' y1='22.08' x2='12' y2='12'/></svg>" />
+    <!-- Preconnect and Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Compressly",
+        "url": "https://compressly.app",
+        "description": "Free online image compressor tool for JPG, PNG, and WebP images. Works 100% in your browser for absolute privacy and speed.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All modern web browsers",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Client-side image compression without server uploads",
+          "Supports JPG, PNG, and WebP formats",
+          "Adjustable compression quality slider (10% - 100%)",
+          "Instant before-and-after visual comparison",
+          "Batch compression and bulk download"
+        ]
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-indigo-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

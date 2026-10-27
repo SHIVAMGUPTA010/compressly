@@ -1,0 +1,6 @@
+{
+  "name": "Compressly – Free Online Image Compressor",
+  "description": "Fast, private, browser-based online image compressor. Compress JPG, JPEG, PNG, and WebP images without losing quality, with 100% local processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
